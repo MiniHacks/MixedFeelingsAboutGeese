@@ -1,22 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
 
+import { addDocument, collection  } from 'firebase/firestore';
+import { signInAnonymously } from 'firebase/auth';
+
+import { useEffect, useState } from 'react';
+
+import { auth } from './firebase.js';
+
 function App() {
+
+  const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState(0);
+
+  const signIn = async () => {
+    const user = await signInAnonymously(auth);
+    setUser(user)
+    setUserId(user.uid)
+  }
+
+  // mount loop (ideally)
+  useEffect(() => {
+    console.log("Setting up")
+    signIn()
+  }, []);
+
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        Brilliant React Code
       </header>
     </div>
   );
