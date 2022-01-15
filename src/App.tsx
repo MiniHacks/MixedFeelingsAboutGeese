@@ -2,8 +2,10 @@ import './App.css';
 
 import { signInAnonymously, UserCredential } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
+import { addDoc, collection } from 'firebase/firestore';
 
-import { auth } from './firebase';
+import { auth, db } from './firebase';
+import { teams } from './scripts/nhl_docs'
 
 const App: React.FC = () => {
 
@@ -20,6 +22,7 @@ const App: React.FC = () => {
   useEffect(() => {
     console.log("Setting up")
     signIn()
+    teams.forEach(team => addDoc(collection(db,"teams"), team));
   }, []);
 
 
