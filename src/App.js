@@ -9,15 +9,20 @@ import { auth } from './firebase.js';
 
 function App() {
 
+  const [user, setUser] = useState(null);
   const [userId, setUserId] = useState(0);
 
   const signIn = async () => {
     const user = await signInAnonymously(auth);
+    setUser(user)
     setUserId(user.uid)
   }
+
+  // mount loop (ideally)
   useEffect(() => {
+    console.log("Setting up")
     signIn()
-  });
+  }, []);
 
 
   return (
