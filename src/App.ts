@@ -1,6 +1,6 @@
 import './App.css';
 
-import { signInAnonymously } from 'firebase/auth';
+import { signInAnonymously, UserCredential } from 'firebase/auth';
 
 import { useEffect, useState } from 'react';
 
@@ -8,13 +8,13 @@ import { auth } from './firebase.js';
 
 function App() {
 
-  const [user, setUser] = useState(null);
-  const [userId, setUserId] = useState(0);
+  const [user, setUser] = useState<UserCredential["user"] | undefined>();
+  const [userId, setUserId] = useState("");
 
   const signIn = async () => {
-    const user = await signInAnonymously(auth);
-    setUser(user)
-    setUserId(user.uid)
+    const credential: UserCredential = await signInAnonymously(auth);
+    setUser(credential.user)
+    setUserId(credential.user.uid)
   }
 
   // mount loop (ideally)
