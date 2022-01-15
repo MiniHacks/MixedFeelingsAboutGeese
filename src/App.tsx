@@ -1,10 +1,9 @@
 import './App.css';
 
 import { signInAnonymously, UserCredential } from 'firebase/auth';
-
 import React, { useEffect, useState } from 'react';
 
-import { auth } from './firebase.js';
+import { auth } from './firebase';
 
 const App: React.FC = () => {
 
