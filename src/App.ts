@@ -1,6 +1,5 @@
 import './App.css';
 
-import { addDocument, collection  } from 'firebase/firestore';
 import { signInAnonymously } from 'firebase/auth';
 
 import { useEffect, useState } from 'react';
