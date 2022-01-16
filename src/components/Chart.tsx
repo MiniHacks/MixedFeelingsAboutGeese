@@ -23,16 +23,18 @@ ChartJS.register(
 );
 
 interface Props {
-  series: Array<EloPoint> | undefined;
+  series: Array<Array<EloPoint>> | undefined;
 }
 
 const Chart: React.FC<Props> = (props: Props) => {
 
-  const [series, setSeries] = useState([]);
+  const [series1, setSeries1] = useState([]);
+  const [series2, setSeries2] = useState([]);
 
   useEffect(() => {
     if (props.series) {
-      setSeries(props.series.map(d => ({x: d.date, y: d.elo})))
+      setSeries1(props.series[0].map(d => ({x: d.date, y: d.elo})))
+      setSeries2(props.series[1].map(d => ({x: d.date, y: d.elo})))
     }
   }, [props.series])
 
@@ -56,20 +58,16 @@ const Chart: React.FC<Props> = (props: Props) => {
     datasets: [
       {
         label: 'Dataset 1',
-        data: series,
+        data: series1,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      }
-      
-      /*
-      ,
+      },
       {
         label: 'Dataset 2',
-        data: labels.map(() => Math.random() * 1000),
+        data: series2,
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
-      */
     ],
   };
 
