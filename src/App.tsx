@@ -1,13 +1,12 @@
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import { signInAnonymously, UserCredential } from 'firebase/auth';
-import React, { useEffect, useState } from 'react';
-import Chart from './components/Chart';
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.css";
+import { signInAnonymously, UserCredential } from "firebase/auth";
+import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { auth } from './firebase';
+import { auth } from "./firebase";
 
 import { db } from './firebase';
-import { getDoc, doc, DocumentData } from 'firebase/firestore';
+import { setDoc, getDoc, doc, DocumentData } from 'firebase/firestore';
 
 import { EloPoint, Team } from './models'
 import Navigation from './components/navigation';
@@ -17,23 +16,31 @@ import Leaderboard from './pages/Leaderboard';
 import About from './pages/About';
 
 const App: React.FC = () => {
-
   const [user, setUser] = useState<UserCredential["user"] | undefined>();
   const [chartData, setChartData] = useState<Team[]>();
   const [userId, setUserId] = useState("");
 
   const signIn = async () => {
     const credential: UserCredential = await signInAnonymously(auth);
-    setUser(credential.user)
-    setUserId(credential.user.uid)
-    console.log(credential.user);
-  }
+    setUser(credential.user);
+    setUserId(credential.user.uid);
+
+    const userDoc = (
+      await getDoc(doc(db, "users", credential.user.uid))
+    ).data();
+    if (userDoc === undefined) {
+      await setDoc(doc(db, "users", credential.user.uid), {
+        name: "Anonymous",
+        miseryScore: 0,
+        saved: false,
+      });
+    }
+  };
 
   // mount loop (ideally)
   useEffect(() => {
-    console.log("Setting up")
-    signIn()
-    getChartData()
+    signIn();
+    getChartData();
   }, []);
 
   const getChartData = async () => {
@@ -45,16 +52,15 @@ const App: React.FC = () => {
 
   return (
     <div className="App-custom">
-    <Chart datasets={chartData}/>
       <Navigation />
       <Routes>
-        <Route path='/' element={<Home/>} />
-        <Route path='/teams' element={<Teams/>} />
-        <Route path='/leaderboard' element={<Leaderboard/>} />
-        <Route path='/about' element={<About/>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/teams" element={<Teams auth={user} />} />
+        <Route path="/leaderboard" element={<Leaderboard auth={userId} />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </div>
   );
-}
+};
 
 export default App;
