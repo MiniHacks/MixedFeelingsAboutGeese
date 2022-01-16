@@ -5,6 +5,12 @@ import React, { useEffect, useState } from 'react';
 
 import { auth } from './firebase';
 
+/*
+import { teams } from './scripts/nhl_docs'
+import { setDoc, doc } from 'firebase/firestore';
+import { db } from './firebase';
+*/
+
 const App: React.FC = () => {
 
   const [user, setUser] = useState<UserCredential["user"] | undefined>();
@@ -24,8 +30,6 @@ const App: React.FC = () => {
   }, []);
 
   /*
-  import { setDoc, doc } from 'firebase/firestore';
-  import { auth, db } from './firebase';
   const sendDocuments = () => {
     console.log("Sending documents!")
     teams.forEach(async team => {
@@ -33,6 +37,7 @@ const App: React.FC = () => {
     });
     console.log("Sent documents!")
   }
+  <button onClick={sendDocuments}> Blast Off! </button>
   */
 
   return (

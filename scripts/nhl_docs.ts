@@ -1,7 +1,7 @@
 
-import elo_history from './data/nhl/elo_history.json';
-import elo from './data/nhl/elo_vals.json';
-import team_ids from './data/nhl/team_ids.json'
+import elo_history from './data/nba/elo_history.json';
+import elo from './data/nba/elo_vals.json';
+import team_ids from './data/nba/team_ids.json'
 
 interface EloPoint {
   elo: number;
@@ -19,7 +19,7 @@ console.log(Object.keys(team_ids))
 
 export const teams: Array<Team> = Object.keys(team_ids).map(key =>
   ({ name: team_ids[key],
-    league: "NHL",
+    league: "NBA",
     elo: Math.round(elo[key]),
     elo_history: Object.keys(elo_history[key]).map(date => (
       {
