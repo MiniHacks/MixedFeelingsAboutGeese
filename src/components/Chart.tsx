@@ -6,7 +6,6 @@ import {
   PointElement,
   LineElement,
   Title,
-  Tooltip,
   Legend,
 } from 'chart.js';
 import 'chartjs-adapter-moment';
@@ -19,7 +18,6 @@ ChartJS.register(
   PointElement,
   LineElement,
   Title,
-  Tooltip,
   Legend
 );
 
@@ -40,7 +38,6 @@ const Chart: React.FC<Props> = (props: Props) => {
   }, [props.series])
 
   const options = {
-    responsive: true,
     scales: {
       x: [{
         // The axis for this scale is determined from the first letter of the id as `'x'`
@@ -59,23 +56,24 @@ const Chart: React.FC<Props> = (props: Props) => {
     },
   };
 
-  //const labels = ['2010', '2011', '2012', '2013', '2020', '2021', '2022'];
-
   const data = {
     labels: [...new Set(series1.map(d => d.x).concat(series2.map(d => d.x)))].sort(),
     datasets: [
       {
         label: 'Dataset 1',
         data: series1,
-        tension: 5,
+        tension: 0.3,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        pointRadius: 0,
       },
       {
         label: 'Dataset 2',
         data: series2,
+        tension: 0.3,
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        pointRadius: 0,
       },
     ],
   };
