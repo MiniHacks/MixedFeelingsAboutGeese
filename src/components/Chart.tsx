@@ -42,7 +42,7 @@ const Chart: React.FC<Props> = (props: Props) => {
       const start = Math.min(...props.datasets.map(dataset => Date.parse(dataset.elo_history[0].date)))
       const dayArray = getDaysArray(start, Date.now())
 
-      const datasets = props.datasets.map(dataset => {
+      const sets = props.datasets.map(dataset => {
         const m = new Map<number, number>();
         dataset.elo_history.forEach( point => 
           m.set(Date.parse(point.date), point.elo)
@@ -58,7 +58,15 @@ const Chart: React.FC<Props> = (props: Props) => {
           tension: 0.3
         }
       })
-      setDatasets(datasets)
+      sets.push({
+        label: "Average",
+        data: dayArray.map(day => 1400),
+        borderColor: `rgb(0,0,0)`,
+        backgroundColor: `rgb(0,0,0)`,
+        pointRadius: 0,
+        tension: 0,
+      })
+      setDatasets(sets)
       setLabels(dayArray)
     }
   }, [props.datasets])
