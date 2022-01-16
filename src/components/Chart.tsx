@@ -7,14 +7,20 @@ import {
   LineElement,
   Title,
   Legend,
+  ChartOptions,
+  TimeScale,
+  CartesianScaleTypeRegistry,
+  ScaleOptionsByType
 } from 'chart.js';
 import 'chartjs-adapter-moment';
 import { Line } from 'react-chartjs-2';
 import { EloPoint } from '../models'
+import { _DeepPartialObject } from 'chart.js/types/utils';
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
+  TimeScale,
   PointElement,
   LineElement,
   Title,
@@ -37,14 +43,17 @@ const Chart: React.FC<Props> = (props: Props) => {
     }
   }, [props.series])
 
-  const options = {
-    scales: {
-      x: [{
-        // The axis for this scale is determined from the first letter of the id as `'x'`
-        // It is recommended to specify `position` and / or `axis` explicitly.
-        type: 'time',
-      }]
-    },
+
+  const scales: _DeepPartialObject<{
+    [key: string]: ScaleOptionsByType<"radialLinear" | keyof CartesianScaleTypeRegistry>;
+}> = {
+      x: {
+        'type': 'time',
+      }
+    };
+
+  const options: ChartOptions = {
+    scales,
     plugins: {
       legend: {
         position: 'top' as const,
@@ -56,8 +65,15 @@ const Chart: React.FC<Props> = (props: Props) => {
     },
   };
 
+  const getDaysArray = (start, end) => {
+    for(var arr=[],dt=new Date(start); dt<=end; dt.setDate(dt.getDate()+1)){
+        arr.push(new Date(dt));
+    }
+    return arr;
+};
+
   const data = {
-    labels: [...new Set(series1.map(d => d.x).concat(series2.map(d => d.x)))].sort(),
+    labels: getDaysArray(new Date("2010-01-01"),new Date()),//[...new Set(series1.map(d => d.x).concat(series2.map(d => d.x)))].sort().map(date => new Date(date * 1000).toLocaleDateString("en-US")),
     datasets: [
       {
         label: 'Dataset 1',
@@ -78,7 +94,7 @@ const Chart: React.FC<Props> = (props: Props) => {
     ],
   };
 
-  return <Line options={options} data={data} />;
+  return <Line data={data} />;
 }
 
 export default Chart
