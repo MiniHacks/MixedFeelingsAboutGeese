@@ -42,7 +42,7 @@ const Chart: React.FC<Props> = (props: Props) => {
   const options = {
     responsive: true,
     scales: {
-      xAxis: [{
+      x: [{
         // The axis for this scale is determined from the first letter of the id as `'x'`
         // It is recommended to specify `position` and / or `axis` explicitly.
         type: 'time',
@@ -62,7 +62,7 @@ const Chart: React.FC<Props> = (props: Props) => {
   //const labels = ['2010', '2011', '2012', '2013', '2020', '2021', '2022'];
 
   const data = {
-    labels: [2010, 2022],
+    labels: [...new Set(series1.map(d => d.x).concat(series2.map(d => d.x)))].sort(),
     datasets: [
       {
         label: 'Dataset 1',
