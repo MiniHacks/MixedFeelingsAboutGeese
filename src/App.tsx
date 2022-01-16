@@ -59,7 +59,6 @@ const App: React.FC = () => {
 
   return (
     <div className="App-custom">
-    <Chart series={chartData}/>
       <Navigation />
       <Routes>
         <Route path='/' element={<Home/>} />
@@ -67,6 +66,7 @@ const App: React.FC = () => {
         <Route path='/leaderboard' element={<Leaderboard/>} />
         <Route path='/about' element={<About/>} />
       </Routes>
+      <Chart series={chartData}/>
     </div>
   );
 }

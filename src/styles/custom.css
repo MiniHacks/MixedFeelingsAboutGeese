@@ -2,9 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Sorts+Mill+Goudy:ital@0;1&display=swap');
 
 .custom {
-    font-family: 'Inconsolata', 'Roboto', sans-serif !important;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
-    background-color: white !important;
+    font-family: 'Inconsolata', 'Roboto', sans-serif;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: white;
     border-radius: 8px;
 }
 
@@ -25,12 +25,91 @@
 
 .page.home h1 {
     font-family: 'Baskervville', serif;
-    font-size: 40px;
-    margin-bottom: 40px;
-    max-width: 500px;
+    font-size: 60px;
+    margin-bottom: 60px;
+    max-width: 700px;
 }
 
 .page .footer {
     display: flex;
     justify-content: flex-end;
 }
+
+/* teams + leaderboard page */
+.page.leaderboard,
+.page.teams {
+    display: flex;
+    padding: 100px;
+}
+
+.page.leaderboard Table,
+.page.teams Table {
+    font-size: 24px;
+    width: 60vw;
+    text-align: left;
+}
+
+/* about */
+.page.about {
+    padding: 60px;
+}
+
+.page.about h1 {
+    font-family: 'Baskervville', serif;
+    text-align: left;
+}
+
+.page.about p {
+    margin-bottom: 20px;
+}
+
+.page.about img {
+    padding: 20px;
+}
+
+/* animation */
+
+.dance {
+    display: table-cell;
+    animation: animate 1s infinite;
+  }
+
+  @keyframes animate {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+
+  .dance:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  .dance:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .dance:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  .dance:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+  .dance:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+  .dance:nth-child(6) {
+    animation-delay: 0.6s;
+  }
+  .dance:nth-child(7) {
+    animation-delay: 0.7s;
+  }
+
+  .dance:nth-child(8) {
+    animation-delay: 0.8s;
+  }
+
+  .dance:nth-child(8) {
+    animation-delay: 0.8s;
+  }
+
+  .dance:nth-child(9) {
+    animation-delay: 0.9s;
+  }

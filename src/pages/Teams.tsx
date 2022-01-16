@@ -1,9 +1,10 @@
 import React from 'react';
+import TeamTable from '../components/teamTable';
 
 export default function Teams() {
   return (
-    <div className="container">
-      This is a teams page.
+    <div className="page teams">
+      <TeamTable />
     </div>
   )
 }
