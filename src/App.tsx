@@ -9,12 +9,14 @@ import { auth } from './firebase';
 /*
 import { teams } from './scripts/gen_docs'
 import { setDoc, doc } from 'firebase/firestore';
-import { db } from './firebase';
 */
+import { db } from './firebase';
+import { getDoc, doc, DocumentData } from 'firebase/firestore';
 
 const App: React.FC = () => {
 
   const [user, setUser] = useState<UserCredential["user"] | undefined>();
+  const [charData, setChartData] = useState<DocumentData | undefined>();
   const [userId, setUserId] = useState("");
 
   const signIn = async () => {
@@ -28,8 +30,15 @@ const App: React.FC = () => {
   useEffect(() => {
     console.log("Setting up")
     signIn()
+    getChartData()
   }, []);
 
+  const getChartData = async () => {
+    const docRef = doc(db, "team_info", "Minnesota Twins");
+    const docSnap = await getDoc(docRef);
+
+    setChartData(docSnap.data())
+  }
   /*
   const sendDocuments = () => {
     console.log("Sending documents!")
