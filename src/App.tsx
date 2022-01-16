@@ -37,8 +37,8 @@ const App: React.FC = () => {
   }, []);
 
   const getChartData = async () => {
-    const twins: Team = (await getDoc(doc(db, "team_info", "Minnesota Twins"))).data();
-    const yankees: Team = (await getDoc(doc(db, "team_info", "New York Yankees"))).data();
+    const twins = (await getDoc(doc(db, "team_info", "Minnesota Twins"))).data() as Team;
+    const yankees = (await getDoc(doc(db, "team_info", "New York Yankees"))).data() as Team;
 
     setChartData([twins, yankees])
   }
