@@ -2,17 +2,7 @@
 import elo_history from './data/mlb/elo_history.json';
 import elo from './data/mlb/elo_vals.json';
 import team_ids from './data/mlb/team_ids.json'
-
-interface EloPoint {
-  elo: number;
-  date: string;
-}
-interface Team {
-  name: string;
-  league: string;
-  elo: number;
-  elo_history: EloPoint[]
-}
+import { Team } from '../src/models'
 
 console.log(elo)
 console.log(Object.keys(team_ids))
