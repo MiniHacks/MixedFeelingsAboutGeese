@@ -103,7 +103,12 @@ export default function Teams({ auth }) {
           <CustomButton
             text={"save results"}
             onClick={saveMisery}
-            disabled={misery === null}
+            disabled={
+              misery === null ||
+              selectedTeams.length === 0 ||
+              (selectedTeams.length === 1 &&
+                selectedTeams[0] === "Seattle Kraken")
+            }
           />
         </Link>
       </div>
