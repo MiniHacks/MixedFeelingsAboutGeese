@@ -55,16 +55,18 @@ const Chart: React.FC<Props> = (props: Props) => {
           borderColor: `hsla(${~~(hue)},70%,70%,0.8)`,
           backgroundColor: `hsla(${~~(hue)},70%,70%,0.8)`,
           pointRadius: 0,
-          tension: 0.3
+          tension: 0.3,
+          borderWidth: 5
         }
       })
       sets.push({
         label: "Average",
         data: dayArray.map(day => 1400),
-        borderColor: `rgb(0,0,0)`,
-        backgroundColor: `rgb(0,0,0)`,
+        borderColor: `rgb(0,0,0, 0.4)`,
+        backgroundColor: `rgb(0,0,0,0.4)`,
         pointRadius: 0,
         tension: 0,
+        borderWidth: 3
       })
       setDatasets(sets)
       setLabels(dayArray)
