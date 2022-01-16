@@ -6,8 +6,6 @@ import Chart from './components/Chart';
 import { Route, Routes } from "react-router-dom";
 import { auth } from './firebase';
 
-import { teams } from './scripts/gen_docs'
-import { setDoc } from 'firebase/firestore';
 import { db } from './firebase';
 import { getDoc, doc } from 'firebase/firestore';
 
@@ -44,17 +42,9 @@ const App: React.FC = () => {
 
     setChartData([twinsElo, yankeesElo])
   }
-  const sendDocuments = () => {
-    console.log("Sending documents!")
-    teams.forEach(async team => {
-      await setDoc(doc(db,"team_info", team.name), team)
-    });
-    console.log("Sent documents!")
-  }
 
   return (
     <div className="App-custom">
-    <button onClick={sendDocuments}> Blast Off! </button>
     <Chart series={chartData}/>
       <Navigation />
       <Routes>
