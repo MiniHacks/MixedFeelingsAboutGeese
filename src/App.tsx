@@ -2,6 +2,7 @@ import './App.css';
 
 import { signInAnonymously, UserCredential } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
+import Chart from './components/Chart';
 
 import { auth } from './firebase';
 
