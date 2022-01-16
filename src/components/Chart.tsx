@@ -41,13 +41,13 @@ const Chart: React.FC<Props> = (props: Props) => {
 
   useEffect(() => {
     if (props.datasets) {
-      setDatasets(props.datasets.map(dataset => {
+      const datasets = props.datasets.map(dataset => {
         const m = new Map<number, number>();
         dataset.forEach( point => 
-          m1.set(Date.parse(point.date), point.elo)
+          m.set(Date.parse(point.date), point.elo)
         )
         return m
-      }))
+      })
       console.log(datasets)
       const m1 = new Map();
       const m2 = new Map();
@@ -64,28 +64,6 @@ const Chart: React.FC<Props> = (props: Props) => {
     setDayArray(getDaysArray(start, Date.now()))
   }, [start])
 
-
-  const scales: _DeepPartialObject<{
-    [key: string]: ScaleOptionsByType<"radialLinear" | keyof CartesianScaleTypeRegistry>;
-}> = {
-      x: {
-        'type': 'time',
-      }
-    };
-
-  const options: ChartOptions = {
-    scales,
-    plugins: {
-      legend: {
-        position: 'top' as const,
-      },
-      title: {
-        display: true,
-        text: 'Your Misery',
-      },
-    },
-  };
-
   const getDaysArray = (start, end) => {
     for(var arr=[],dt=new Date(start); dt<=end; dt.setDate(dt.getDate()+1)){
         arr.push(new Date(dt));
@@ -96,9 +74,6 @@ const Chart: React.FC<Props> = (props: Props) => {
   const data = {
     labels: dayArray,//[...new Set(series1.map(d => d.x).concat(series2.map(d => d.x)))].sort().map(date => new Date(date * 1000).toLocaleDateString("en-US")),
     datasets: [
-      {
-        label: 'Average'
-      }
       {
         label: 'Dataset 1',
         data: dayArray.map(day => series1.get(day.getTime()) || null),
