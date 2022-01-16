@@ -16,7 +16,7 @@ import { getDoc, doc, DocumentData } from 'firebase/firestore';
 const App: React.FC = () => {
 
   const [user, setUser] = useState<UserCredential["user"] | undefined>();
-  const [charData, setChartData] = useState<DocumentData | undefined>();
+  const [chartData, setChartData] = useState<DocumentData | undefined>();
   const [userId, setUserId] = useState("");
 
   const signIn = async () => {
@@ -37,7 +37,7 @@ const App: React.FC = () => {
     const docRef = doc(db, "team_info", "Minnesota Twins");
     const docSnap = await getDoc(docRef);
 
-    setChartData(docSnap.data())
+    setChartData(docSnap.data().elo_history)
   }
   /*
   const sendDocuments = () => {
@@ -54,7 +54,7 @@ const App: React.FC = () => {
     <div className="App">
       <header className="App-header">
         Brilliant React Code
-        <Chart />
+        <Chart data={chartData}/>
       </header>
     </div>
   );

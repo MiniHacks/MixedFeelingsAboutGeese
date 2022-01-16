@@ -42,7 +42,7 @@ const chart = (props) => {
     datasets: [
       {
         label: 'Dataset 1',
-        data: props.data().map(d => ({x: d.date, y: d.elo})),
+        data: props.data.map(d => ({x: d.date, y: d.elo})),
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       }
