@@ -33,8 +33,6 @@ interface Props {
 
 const Chart: React.FC<Props> = (props: Props) => {
 
-  const [series1, setSeries1] = useState(new Map<number, number>());
-  const [series2, setSeries2] = useState(new Map<number, number>());
   const [labels, setLabels] = useState([])
   const [datasets, setDatasets] = useState([])
 
@@ -53,22 +51,13 @@ const Chart: React.FC<Props> = (props: Props) => {
         return {
           label: 'Data!',
           data: dayArray.map(day => m.get(day.getTime()) || null),
-          borderColor: 'rgb(255, 99, 132)',
-          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          borderColor: `hsla(${~~(360 * Math.random())},70%,70%,0.8)`,
           pointRadius: 0,
           tension: 0.3
         }
       })
       setDatasets(datasets)
       setLabels(dayArray)
-      console.log(datasets)
-      const m1 = new Map();
-      const m2 = new Map();
-      props.datasets[0].forEach(d => m1.set(Date.parse(d.date), d.elo))
-      props.datasets[1].forEach(d => m2.set(Date.parse(d.date), d.elo))
-      setSeries1(m1);
-      setSeries2(m2);
-
     }
   }, [props.datasets])
 
