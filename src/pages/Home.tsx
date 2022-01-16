@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import { Link } from 'react-router-dom';
 import CustomButton from '../components/customButton';
 import '../styles/custom.css';
@@ -24,7 +24,7 @@ export default function Home() {
         </span>
           are you according to your sports?</h1>
         <Link to="/teams">
-          <CustomButton />
+          <CustomButton text = "find out now"/>
         </Link>
     </div>
   );

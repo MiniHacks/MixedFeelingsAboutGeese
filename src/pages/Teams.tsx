@@ -1,4 +1,5 @@
 import React from 'react';
+import CustomButton from '../components/customButton';
 import TeamTable from '../components/teamTable';
 let hasTeam:boolean;
 let misery:number;
@@ -12,11 +13,16 @@ function getMisery(hasTeam: boolean) {
 }
 };
 
+/* currently just a sample table + button sorry ben */
+
 export default function Teams() {
   return (
     <div className="page teams">
       { getMisery(hasTeam) }
       <TeamTable />
+      <div className="btn">
+        <CustomButton text={"+ add a team"} />
+      </div>
     </div>
   )
 }
