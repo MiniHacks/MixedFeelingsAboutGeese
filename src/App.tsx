@@ -37,13 +37,13 @@ const App: React.FC = () => {
     });
     console.log("Sent documents!")
   }
-  /*
+  <button onClick={sendDocuments}> Blast Off! </button>
+  */
 
   return (
     <div className="App">
       <header className="App-header">
         Brilliant React Code
-        <button onClick={sendDocuments}> Blast Off! </button>
       </header>
     </div>
   );
