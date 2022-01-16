@@ -49,6 +49,12 @@
     text-align: left;
 }
 
+.teams .misery {
+  font-family: 'Baskervville', serif;
+  font-size: 60px;
+  margin-bottom: 60px;
+}
+
 /* about */
 .page.about {
     padding: 60px;
@@ -66,6 +72,8 @@
 .page.about img {
     padding: 20px;
 }
+
+/*  */
 
 /* animation */
 
