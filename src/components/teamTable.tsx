@@ -1,43 +1,72 @@
-import React from "react";
-import { Table } from "react-bootstrap";
-import '../styles/custom.css';
-
-/* needs to be able to retrieve data from ??? , update, sort*/
-/* it's all hard coded right now lol */
+import React, { useState } from "react";
+import { Accordion, Form } from "react-bootstrap";
+import { nflTeams, nbaTeams, mlbTeams, nhlTeams } from "../resources/teams";
+import "../styles/custom.css";
 
 const TeamTable = () => {
-  return (
-    <div>
-      <Table striped bordered hover className="custom" borderless={true} >
-        <thead>
-          <tr>
-            <th>league</th>
-            <th>team</th>
-            <th>elo</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>NHL</td>
-            <td>Toronto Maple Leafs</td>
-            <td>1648</td>
-          </tr>
-          <tr>
-            <td>NHL</td>
-            <td>Dallas Stars</td>
-            <td>1420</td>
-          </tr>
-          <tr>
-            <td>NBA</td>
-            <td>Minnesota Timberwolves</td>
-            <td>1356</td>
-          </tr>
+  const [selectedTeams, setTeams] = useState([]);
 
-        </tbody>
-      </Table>
-    </div>
+  const renderTeamCheckForm = (teams: string[]) => {
+    return (
+      <React.Fragment>
+        {teams.map((t) => {
+          return (
+            <Form.Check
+              type="checkbox"
+              key={t}
+              label={t}
+              onClick={() => handleTeamSelect(t)}
+            />
+          );
+        })}
+      </React.Fragment>
+    );
+  };
+
+  const handleTeamSelect = (team: string) => {
+    const copyTeams: string[] = [...selectedTeams];
+    const teamIdx: number = copyTeams.indexOf(team);
+    if (teamIdx > -1) {
+      copyTeams.splice(teamIdx, 1);
+    } else {
+      copyTeams.push(team);
+    }
+    setTeams(copyTeams);
+    console.log(copyTeams);
+  };
+
+  return (
+    <React.Fragment>
+      <Accordion>
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>National Football League (NFL)</Accordion.Header>
+          <Accordion.Body>
+            {renderTeamCheckForm(nflTeams.sort())}
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="1">
+          <Accordion.Header>
+            National Basketball Association (NBA)
+          </Accordion.Header>
+          <Accordion.Body>
+            {renderTeamCheckForm(nbaTeams.sort())}
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="2">
+          <Accordion.Header>Major League Baseball (MLB)</Accordion.Header>
+          <Accordion.Body>
+            {renderTeamCheckForm(mlbTeams.sort())}
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="3">
+          <Accordion.Header>National Hockey League (NHL)</Accordion.Header>
+          <Accordion.Body>
+            {renderTeamCheckForm(nhlTeams.sort())}
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
+    </React.Fragment>
   );
 };
 
 export default TeamTable;
-
