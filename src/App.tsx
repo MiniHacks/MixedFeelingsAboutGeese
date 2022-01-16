@@ -10,6 +10,7 @@ import Navigation from './components/navigation';
 import Home from './pages/Home';
 import Teams from './pages/Teams';
 import Leaderboard from './pages/Leaderboard';
+import About from './pages/About';
 
 const App: React.FC = () => {
 
@@ -29,12 +30,13 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="App">
+    <div className="App-custom">
       <Navigation />
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='/teams' element={<Teams/>} />
         <Route path='/leaderboard' element={<Leaderboard/>} />
+        <Route path='/about' element={<About/>} />
       </Routes>
     </div>
   );
