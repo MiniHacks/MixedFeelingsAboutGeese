@@ -5,15 +5,15 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { auth } from "./firebase";
 
-import { db } from './firebase';
-import { setDoc, getDoc, doc, DocumentData } from 'firebase/firestore';
+import { db } from "./firebase";
+import { setDoc, getDoc, doc, DocumentData } from "firebase/firestore";
 
-import { EloPoint, Team } from './models'
-import Navigation from './components/navigation';
-import Home from './pages/Home';
-import Teams from './pages/Teams';
-import Leaderboard from './pages/Leaderboard';
-import About from './pages/About';
+import { EloPoint, Team } from "./models";
+import Navigation from "./components/navigation";
+import Home from "./pages/Home";
+import Teams from "./pages/Teams";
+import Leaderboard from "./pages/Leaderboard";
+import About from "./pages/About";
 
 const App: React.FC = () => {
   const [user, setUser] = useState<UserCredential["user"] | undefined>();
@@ -44,11 +44,15 @@ const App: React.FC = () => {
   }, []);
 
   const getChartData = async () => {
-    const twins = (await getDoc(doc(db, "team_info", "Minnesota Twins"))).data() as Team;
-    const yankees = (await getDoc(doc(db, "team_info", "New York Yankees"))).data() as Team;
+    const twins = (
+      await getDoc(doc(db, "team_info", "Minnesota Twins"))
+    ).data() as Team;
+    const yankees = (
+      await getDoc(doc(db, "team_info", "New York Yankees"))
+    ).data() as Team;
 
-    setChartData([twins, yankees])
-  }
+    setChartData([twins, yankees]);
+  };
 
   return (
     <div className="App-custom">
@@ -56,7 +60,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/teams" element={<Teams auth={user} />} />
-        <Route path="/leaderboard" element={<Leaderboard auth={userId} />} />
+        <Route path="/results" element={<Leaderboard auth={userId} />} />
         <Route path="/about" element={<About />} />
       </Routes>
     </div>
