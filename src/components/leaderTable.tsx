@@ -1,20 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { db } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import React from "react";
 import { Table } from "react-bootstrap";
 import "../styles/custom.css";
 
-const LeaderTable = ({ auth }) => {
-  const [misery, setMisery] = useState(null);
-
-  const getUser = async () => {
-    const data = (await getDoc(doc(db, "users", auth))).data();
-  };
-
-  useEffect(() => {
-    getUser();
-  });
-
+const LeaderTable = () => {
   return (
     <div>
       <Table striped bordered hover className="custom" borderless={true}>
