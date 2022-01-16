@@ -21,44 +21,44 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
+const chart = (props) => {
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+      },
+      title: {
+        display: true,
+        text: 'Your Misery',
+      },
     },
-    title: {
-      display: true,
-      text: 'Your Misery',
-    },
-  },
-};
+  };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: labels.map(() => Math.random() * 1000),
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    }
-    
-    /*
-    ,
-    {
-      label: 'Dataset 2',
-      data: labels.map(() => Math.random() * 1000),
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-    */
-  ],
-};
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: props.data().map(d => ({x: d.date, y: d.elo})),
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      }
+      
+      /*
+      ,
+      {
+        label: 'Dataset 2',
+        data: labels.map(() => Math.random() * 1000),
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      },
+      */
+    ],
+  };
 
-const chart = () => {
   return <Line options={options} data={data} />;
 }
 
