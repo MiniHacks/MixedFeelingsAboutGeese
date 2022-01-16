@@ -37,7 +37,7 @@ const TeamTable = () => {
 
   return (
     <React.Fragment>
-      <Accordion>
+      <Accordion className="dropdown">
         <Accordion.Item eventKey="0">
           <Accordion.Header>National Football League (NFL)</Accordion.Header>
           <Accordion.Body>

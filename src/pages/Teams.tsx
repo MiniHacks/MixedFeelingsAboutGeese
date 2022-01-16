@@ -19,7 +19,9 @@ export default function Teams() {
   return (
     <div className="page teams">
       { getMisery(hasTeam) }
-      <TeamTable />
+      <div className="table">
+        <TeamTable />
+      </div>
       <div className="btn">
         <CustomButton text={"+ add a team"} />
       </div>

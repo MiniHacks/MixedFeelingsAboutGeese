@@ -5,7 +5,7 @@ import '../styles/custom.css';
 
 const Navigation = () => {
   return (
-    <Navbar className=".custom" bg="dark" variant="dark">
+    <Navbar className="nav" bg="dark" variant="dark">
       <Container>
         <Navbar.Brand as={Link} to="/">miserable title</Navbar.Brand>
         <Nav className="me-auto">
