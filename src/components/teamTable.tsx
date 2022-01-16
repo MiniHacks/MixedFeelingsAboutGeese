@@ -3,9 +3,7 @@ import { Accordion, Container, Row, Col, Form } from "react-bootstrap";
 import { nflTeams, nbaTeams, mlbTeams, nhlTeams } from "../resources/teams";
 import "../styles/custom.css";
 
-const TeamTable = () => {
-  const [selectedTeams, setTeams] = useState([]);
-
+const TeamTable = ({ onSelect }) => {
   const renderTeamCheckForm = (teams: string[]) => {
     return (
       <Container>
@@ -20,7 +18,7 @@ const TeamTable = () => {
                       type="checkbox"
                       key={t}
                       label={t}
-                      onClick={() => handleTeamSelect(t)}
+                      onClick={() => onSelect(t)}
                     />
                   );
                 })}
@@ -30,18 +28,6 @@ const TeamTable = () => {
         </Row>
       </Container>
     );
-  };
-
-  const handleTeamSelect = (team: string) => {
-    const copyTeams: string[] = [...selectedTeams];
-    const teamIdx: number = copyTeams.indexOf(team);
-    if (teamIdx > -1) {
-      copyTeams.splice(teamIdx, 1);
-    } else {
-      copyTeams.push(team);
-    }
-    setTeams(copyTeams);
-    console.log(copyTeams);
   };
 
   return (
