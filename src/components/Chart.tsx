@@ -14,7 +14,7 @@ import {
 } from 'chart.js';
 import 'chartjs-adapter-moment';
 import { Line } from 'react-chartjs-2';
-import { EloPoint } from '../models'
+import { EloPoint, Team } from '../models'
 import { _DeepPartialObject } from 'chart.js/types/utils';
 
 ChartJS.register(
@@ -28,7 +28,7 @@ ChartJS.register(
 );
 
 interface Props {
-  datasets: Array<Array<EloPoint>> | undefined;
+  datasets: Array<Team> | undefined;
 }
 
 const Chart: React.FC<Props> = (props: Props) => {
@@ -39,12 +39,12 @@ const Chart: React.FC<Props> = (props: Props) => {
   useEffect(() => {
     if (props.datasets) {
 
-      const start = Math.min(...props.datasets.map(dataset => Date.parse(dataset[0].date)))
+      const start = Math.min(...props.datasets.map(dataset => Date.parse(dataset.elo_history[0].date)))
       const dayArray = getDaysArray(start, Date.now())
 
       const datasets = props.datasets.map(dataset => {
         const m = new Map<number, number>();
-        dataset.forEach( point => 
+        dataset.elo_history.forEach( point => 
           m.set(Date.parse(point.date), point.elo)
         )
 

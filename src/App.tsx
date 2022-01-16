@@ -7,9 +7,9 @@ import { Route, Routes } from "react-router-dom";
 import { auth } from './firebase';
 
 import { db } from './firebase';
-import { getDoc, doc } from 'firebase/firestore';
+import { getDoc, doc, DocumentData } from 'firebase/firestore';
 
-import { EloPoint } from './models'
+import { EloPoint, Team } from './models'
 import Navigation from './components/navigation';
 import Home from './pages/Home';
 import Teams from './pages/Teams';
@@ -19,7 +19,7 @@ import About from './pages/About';
 const App: React.FC = () => {
 
   const [user, setUser] = useState<UserCredential["user"] | undefined>();
-  const [chartData, setChartData] = useState<Array<Array<EloPoint>> | []>();
+  const [chartData, setChartData] = useState<Team[]>();
   const [userId, setUserId] = useState("");
 
   const signIn = async () => {
@@ -37,10 +37,10 @@ const App: React.FC = () => {
   }, []);
 
   const getChartData = async () => {
-    const twinsElo: Array<EloPoint> = (await getDoc(doc(db, "team_info", "Minnesota Twins"))).data().elo_history;
-    const yankeesElo: Array<EloPoint> = (await getDoc(doc(db, "team_info", "New York Yankees"))).data().elo_history;
+    const twins: Team = (await getDoc(doc(db, "team_info", "Minnesota Twins"))).data();
+    const yankees: Team = (await getDoc(doc(db, "team_info", "New York Yankees"))).data();
 
-    setChartData([twinsElo, yankeesElo])
+    setChartData([twins, yankees])
   }
 
   return (
