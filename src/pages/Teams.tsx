@@ -99,7 +99,7 @@ export default function Teams({ auth }) {
         />
       </div>
       <div className="btn">
-        <Link to="/leaderboard">
+        <Link to="/results">
           <CustomButton
             text={"save results"}
             onClick={saveMisery}
