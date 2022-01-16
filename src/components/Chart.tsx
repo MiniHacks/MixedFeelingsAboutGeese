@@ -41,6 +41,7 @@ const Chart: React.FC<Props> = (props: Props) => {
     if (props.series) {
       const m1 = new Map();
       const m2 = new Map();
+      console.log(props.series[0].map(l => l.date))
       props.series[0].forEach(d => m1.set(Date.parse(d.date), d.elo))
       props.series[1].forEach(d => m2.set(Date.parse(d.date), d.elo))
       setSeries1(m1);
@@ -54,20 +55,12 @@ const Chart: React.FC<Props> = (props: Props) => {
 }> = {
       x: {
         'type': 'time',
+        'time': { unit: 'day' }
       }
     };
 
   const options: ChartOptions = {
     scales,
-    plugins: {
-      legend: {
-        position: 'top' as const,
-      },
-      title: {
-        display: true,
-        text: 'Your Misery',
-      },
-    },
   };
 
   const getDaysArray = (start, end) => {
@@ -77,9 +70,8 @@ const Chart: React.FC<Props> = (props: Props) => {
     return arr;
 };
 
-  const days: Array<Date> = getDaysArray(new Date("2010-01-01"),new Date());
+  const days: Array<Date> = getDaysArray(new Date("2010/01/01"),new Date());
 
-  console.log(series1)
   console.log(days)
   const data = {
     labels: days,//[...new Set(series1.map(d => d.x).concat(series2.map(d => d.x)))].sort().map(date => new Date(date * 1000).toLocaleDateString("en-US")),
