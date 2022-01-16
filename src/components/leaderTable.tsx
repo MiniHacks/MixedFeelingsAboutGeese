@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { db } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
 import { Table } from "react-bootstrap";
-import '../styles/custom.css';
+import "../styles/custom.css";
 
-/* needs to be able to retrieve data from ??? , update, sort*/
-/* it's all hard coded right now lol */
+const LeaderTable = ({ auth }) => {
+  const [misery, setMisery] = useState(null);
 
-const LeaderTable = () => {
+  const getUser = async () => {
+    const data = (await getDoc(doc(db, "users", auth))).data();
+  };
+
+  useEffect(() => {
+    getUser();
+  });
+
   return (
     <div>
-      <Table striped bordered hover className="custom" borderless={true} >
+      <Table striped bordered hover className="custom" borderless={true}>
         <thead>
           <tr>
             <th>standing</th>
@@ -37,7 +46,6 @@ const LeaderTable = () => {
             <td>Socks Clinton</td>
             <td>1212</td>
           </tr>
-
         </tbody>
       </Table>
     </div>
@@ -45,4 +53,3 @@ const LeaderTable = () => {
 };
 
 export default LeaderTable;
-

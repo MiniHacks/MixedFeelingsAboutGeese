@@ -1,13 +1,14 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { db } from "../firebase";
-import { doc, getDoc } from "firebase/firestore";
-import { teams } from "../../scripts/gen_docs";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import CustomButton from "../components/customButton";
 import TeamTable from "../components/teamTable";
 
-export default function Teams() {
+export default function Teams({ auth }) {
   const [misery, setMisery] = useState(null);
   const [selectedTeams, setTeams] = useState([]);
+  const [teamMisery, setTeamMisery] = useState([]);
 
   function renderMiseryValue() {
     if (misery !== null) {
@@ -39,11 +40,27 @@ export default function Teams() {
       ).data();
       scores.push(1400 - average_elo + (4400 - title_score) / 100);
     }
+
+    setTeamMisery(scores);
+
     let total: number = 0;
     for (const score of scores) {
       total += score;
     }
     setMisery((total / scores.length).toFixed(2));
+  };
+
+  const saveMisery = async () => {
+    const copyTeams = selectedTeams.filter((t) => t !== "Seattle Kraken");
+    let teamScores = {};
+    for (let i = 0; i < copyTeams.length; i++) {
+      teamScores[copyTeams[i]] = teamMisery[i];
+    }
+    await updateDoc(doc(db, "users", auth.uid), {
+      miseryScore: misery,
+      saved: true,
+      teams: teamScores,
+    });
   };
 
   return (
@@ -67,6 +84,15 @@ export default function Teams() {
               selectedTeams[0] === "Seattle Kraken")
           }
         />
+      </div>
+      <div className="btn">
+        <Link to="/leaderboard">
+          <CustomButton
+            text={"save results"}
+            onClick={saveMisery}
+            disabled={misery === null}
+          />
+        </Link>
       </div>
     </div>
   );

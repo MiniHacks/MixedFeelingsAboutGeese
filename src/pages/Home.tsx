@@ -2,9 +2,7 @@ import React, { Children } from "react";
 import { Link } from "react-router-dom";
 import CustomButton from "../components/customButton";
 import "../styles/custom.css";
-/* import { Link } from 'react-router-dom'; */
 
-/* questionable code woohoo! */
 export default function Home() {
   return (
     <div className="page home">
@@ -26,11 +24,7 @@ export default function Home() {
         are you according to your sports?
       </h1>
       <Link to="/teams">
-        <CustomButton
-          text="find out now"
-          onClick={() => console.log("Click!")}
-          disabled={false}
-        />
+        <CustomButton text="find out now" onClick={null} disabled={false} />
       </Link>
     </div>
   );

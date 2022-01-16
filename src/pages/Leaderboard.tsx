@@ -1,10 +1,10 @@
-import React from 'react';
-import LeaderTable from '../components/leaderTable';
+import React from "react";
+import LeaderTable from "../components/leaderTable";
 
-export default function Leaderboard() {
+export default function Leaderboard({ auth }) {
   return (
     <div className="page leaderboard">
-      <LeaderTable />
+      <LeaderTable auth={auth} />
     </div>
-  )
+  );
 }
