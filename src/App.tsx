@@ -1,9 +1,15 @@
 import './App.css';
-
+import 'bootstrap/dist/css/bootstrap.css';
 import { signInAnonymously, UserCredential } from 'firebase/auth';
-import React, { useEffect, useState } from 'react';
+import { Route, Routes } from "react-router-dom";
 
+import React, { useEffect, useState } from 'react';
 import { auth } from './firebase';
+
+import Navigation from './components/navigation';
+import Home from './pages/Home';
+import Teams from './pages/Teams';
+import Leaderboard from './pages/Leaderboard';
 
 const App: React.FC = () => {
 
@@ -22,12 +28,14 @@ const App: React.FC = () => {
     signIn()
   }, []);
 
-
   return (
     <div className="App">
-      <header className="App-header">
-        Brilliant React Code
-      </header>
+      <Navigation />
+      <Routes>
+        <Route path='/' element={<Home/>} />
+        <Route path='/teams' element={<Teams/>} />
+        <Route path='/leaderboard' element={<Leaderboard/>} />
+      </Routes>
     </div>
   );
 }
