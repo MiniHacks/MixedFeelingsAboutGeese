@@ -1,13 +1,13 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import '../styles/custom.css'; 
+import '../styles/custom.css';
 
-const CustomButton = () => {
+const CustomButton = ({text}) => {
     return (
         <div>
-            <Button variant="light" className="custom">
-                find out now
+            <Button variant="light" size="lg" className="custom">
+                {text}
             </Button>
         </div>
     );
