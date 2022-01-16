@@ -36,6 +36,7 @@ const Chart: React.FC<Props> = (props: Props) => {
   const [series1, setSeries1] = useState(new Map<number, number>());
   const [series2, setSeries2] = useState(new Map<number, number>());
   const [start, setStart] = useState(new Date("2010"))
+  const [dayArray, setDayArray] = useState([])
 
   useEffect(() => {
     if (props.series) {
@@ -45,8 +46,14 @@ const Chart: React.FC<Props> = (props: Props) => {
       props.series[1].forEach(d => m2.set(Date.parse(d.date), d.elo))
       setSeries1(m1);
       setSeries2(m2);
+
+      setStart(new Date(Math.min(Date.parse(props.series[0][0].date), Date.parse(props.series[1][0].date))))
     }
-  }, [props.series])
+  }, [props.series, start])
+
+  useEffect(() => {
+    setDayArray(getDaysArray(start, Date.now()))
+  }, [start])
 
 
   const scales: _DeepPartialObject<{
@@ -77,7 +84,7 @@ const Chart: React.FC<Props> = (props: Props) => {
     return arr;
 };
 
-  const days: Array<Date> = getDaysArray(new Date("2010-01-01"),new Date());
+  const days: Array<Date> = getDaysArray(start, new Date());
 
   console.log(series1)
   console.log(days)
