@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { auth } from './firebase';
 
 /*
-import { teams } from './scripts/nhl_docs'
+import { teams } from './scripts/gen_docs'
 import { setDoc, doc } from 'firebase/firestore';
 import { db } from './firebase';
 */
