@@ -48,10 +48,12 @@ const Chart: React.FC<Props> = (props: Props) => {
           m.set(Date.parse(point.date), point.elo)
         )
 
+        const hue = 360 * Math.random()
         return {
           label: 'Data!',
           data: dayArray.map(day => m.get(day.getTime()) || null),
-          borderColor: `hsla(${~~(360 * Math.random())},70%,70%,0.8)`,
+          borderColor: `hsla(${~~(hue)},70%,70%,0.8)`,
+          backgroundColor: `hsla(${~~(hue)},70%,70%,0.8)`,
           pointRadius: 0,
           tension: 0.3
         }
