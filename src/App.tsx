@@ -1,9 +1,9 @@
 import './App.css';
-
+import 'bootstrap/dist/css/bootstrap.css';
 import { signInAnonymously, UserCredential } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import Chart from './components/Chart';
-
+import { Route, Routes } from "react-router-dom";
 import { auth } from './firebase';
 
 /*
@@ -14,6 +14,11 @@ import { db } from './firebase';
 import { getDoc, doc, DocumentData } from 'firebase/firestore';
 
 import { EloPoint } from './models'
+import Navigation from './components/navigation';
+import Home from './pages/Home';
+import Teams from './pages/Teams';
+import Leaderboard from './pages/Leaderboard';
+import About from './pages/About';
 
 const App: React.FC = () => {
 
@@ -55,11 +60,15 @@ const App: React.FC = () => {
   */
 
   return (
-    <div className="App">
-      <header className="App-header">
-        Brilliant React Code
-        <Chart series={chartData}/>
-      </header>
+    <div className="App-custom">
+    <Chart series={chartData}/>
+      <Navigation />
+      <Routes>
+        <Route path='/' element={<Home/>} />
+        <Route path='/teams' element={<Teams/>} />
+        <Route path='/leaderboard' element={<Leaderboard/>} />
+        <Route path='/about' element={<About/>} />
+      </Routes>
     </div>
   );
 }
