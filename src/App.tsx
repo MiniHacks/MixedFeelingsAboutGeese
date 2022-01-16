@@ -13,10 +13,12 @@ import { setDoc, doc } from 'firebase/firestore';
 import { db } from './firebase';
 import { getDoc, doc, DocumentData } from 'firebase/firestore';
 
+import { EloPoint } from './models'
+
 const App: React.FC = () => {
 
   const [user, setUser] = useState<UserCredential["user"] | undefined>();
-  const [chartData, setChartData] = useState<DocumentData | undefined>();
+  const [chartData, setChartData] = useState<Array<EloPoint> | []>();
   const [userId, setUserId] = useState("");
 
   const signIn = async () => {
@@ -37,7 +39,9 @@ const App: React.FC = () => {
     const docRef = doc(db, "team_info", "Minnesota Twins");
     const docSnap = await getDoc(docRef);
 
-    setChartData(docSnap.data().elo_history)
+    const data: Array<EloPoint> = docSnap.data().elo_history;
+    console.log(Array.isArray(data))
+    setChartData(data)
   }
   /*
   const sendDocuments = () => {
@@ -54,7 +58,7 @@ const App: React.FC = () => {
     <div className="App">
       <header className="App-header">
         Brilliant React Code
-        <Chart data={chartData}/>
+        <Chart series={chartData}/>
       </header>
     </div>
   );

@@ -10,6 +10,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { EloPoint } from '../models'
 
 ChartJS.register(
   CategoryScale,
@@ -22,16 +23,18 @@ ChartJS.register(
 );
 
 interface Props {
-  data: Array<String>
+  series: Array<EloPoint> | undefined;
 }
 
-const Chart: React.FC = (props: Props) => {
+const Chart: React.FC<Props> = (props: Props) => {
 
   const [series, setSeries] = useState([]);
 
   useEffect(() => {
-    setSeries(props.data.map(d => ({x: d.date, y: d.elo})))
-  }, [props.data])
+    if (props.series) {
+      setSeries(props.series.map(d => ({x: d.date, y: d.elo})))
+    }
+  }, [props.series])
 
   const options = {
     responsive: true,
