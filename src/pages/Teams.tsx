@@ -51,15 +51,15 @@ export default function Teams() {
       {renderMiseryValue()}
       <TeamTable onSelect={handleTeamSelect} />
       {selectedTeams.length === 1 ? (
-        <h3 className="misery">You have selected 1 team.</h3>
+        <h3 className="select">You have selected 1 team.</h3>
       ) : (
-        <h3 className="misery">
+        <h3 className="select">
           You have selected {selectedTeams.length} teams.
         </h3>
       )}
       <div className="btn">
         <CustomButton
-          text={misery === null ? "caculate" : "re-calculate"}
+          text={misery === null ? "calculate" : "re-calculate"}
           onClick={calculateMisery}
           disabled={
             selectedTeams.length === 0 ||
