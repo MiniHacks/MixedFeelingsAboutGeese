@@ -47,7 +47,7 @@ const Results = ({ miseryScore, miseryTeams }) => {
           {mostMiserable.average_elo} when compared to the average value of
           1400.
         </h4>
-        <Chart datasets={[mostMiserable]} />
+        {/* <Chart datasets={[mostMiserable]} /> */}
         <h4 className="pText">
           The {mostMiserable.name} have a success rating of{" "}
           {mostMiserable.title_score} since the year 2000 compared to an average

@@ -71,6 +71,18 @@
   margin-bottom: 60px;
 }
 
+.leaderboard .miserysmall {
+  font-family: "Baskervville", serif;
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.leaderboard .miseryvsmall {
+  font-family: "Baskervville", serif;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
 .leaderboard .select {
   padding: 20px 20px 20px 20px;
   font-family: "Baskervville", serif;
