@@ -5,9 +5,11 @@ import React, { useEffect, useState } from 'react';
 
 import { auth } from './firebase';
 
+/*
 import { teams } from './scripts/nhl_docs'
 import { setDoc, doc } from 'firebase/firestore';
 import { db } from './firebase';
+*/
 
 const App: React.FC = () => {
 
@@ -27,6 +29,7 @@ const App: React.FC = () => {
     signIn()
   }, []);
 
+  /*
   const sendDocuments = () => {
     console.log("Sending documents!")
     teams.forEach(async team => {
@@ -34,6 +37,7 @@ const App: React.FC = () => {
     });
     console.log("Sent documents!")
   }
+  /*
 
   return (
     <div className="App">
