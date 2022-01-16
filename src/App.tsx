@@ -18,7 +18,7 @@ import { EloPoint } from './models'
 const App: React.FC = () => {
 
   const [user, setUser] = useState<UserCredential["user"] | undefined>();
-  const [chartData, setChartData] = useState<Array<EloPoint> | []>();
+  const [chartData, setChartData] = useState<Array<Array<EloPoint>> | []>();
   const [userId, setUserId] = useState("");
 
   const signIn = async () => {
@@ -36,12 +36,10 @@ const App: React.FC = () => {
   }, []);
 
   const getChartData = async () => {
-    const docRef = doc(db, "team_info", "Minnesota Twins");
-    const docSnap = await getDoc(docRef);
+    const twinsElo: Array<EloPoint> = (await getDoc(doc(db, "team_info", "Minnesota Twins"))).data().elo_history;
+    const yankeesElo: Array<EloPoint> = (await getDoc(doc(db, "team_info", "New York Yankees"))).data().elo_history;
 
-    const data: Array<EloPoint> = docSnap.data().elo_history;
-    console.log(Array.isArray(data))
-    setChartData(data)
+    setChartData([twinsElo, yankeesElo])
   }
   /*
   const sendDocuments = () => {
