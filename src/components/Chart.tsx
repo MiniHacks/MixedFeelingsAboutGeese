@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -21,7 +21,18 @@ ChartJS.register(
   Legend
 );
 
-const chart = (props) => {
+interface Props {
+  data: Array<String>
+}
+
+const Chart: React.FC = (props: Props) => {
+
+  const [series, setSeries] = useState([]);
+
+  useEffect(() => {
+    setSeries(props.data.map(d => ({x: d.date, y: d.elo})))
+  }, [props.data])
+
   const options = {
     responsive: true,
     plugins: {
@@ -42,7 +53,7 @@ const chart = (props) => {
     datasets: [
       {
         label: 'Dataset 1',
-        data: props.data.map(d => ({x: d.date, y: d.elo})),
+        data: series,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       }
@@ -62,4 +73,4 @@ const chart = (props) => {
   return <Line options={options} data={data} />;
 }
 
-export default chart
+export default Chart
