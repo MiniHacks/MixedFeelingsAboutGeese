@@ -27,7 +27,7 @@ export default function Leaderboard({ auth }) {
   return (
     <div className="page leaderboard">
       {saved && <Results miseryScore={misery} miseryTeams={miseryTeams} />}
-      <LeaderTable />
+      <LeaderTable miseryIndex={misery} />
     </div>
   );
 }

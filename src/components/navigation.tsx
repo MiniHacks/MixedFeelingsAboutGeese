@@ -17,8 +17,8 @@ const Navigation = () => {
           <Nav.Link as={NavLink} to="/teams">
             teams
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/leaderboard">
-            leaderboard
+          <Nav.Link as={NavLink} to="/results">
+            results
           </Nav.Link>
           <Nav.Link as={NavLink} to="/about">
             about
