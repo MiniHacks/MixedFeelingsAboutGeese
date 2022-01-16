@@ -1,9 +1,10 @@
 import React from 'react';
+import LeaderTable from '../components/leaderTable';
 
 export default function Leaderboard() {
   return (
-    <div className="container">
-      This is a leaderboard page.
+    <div className="page leaderboard">
+      <LeaderTable />
     </div>
   )
 }

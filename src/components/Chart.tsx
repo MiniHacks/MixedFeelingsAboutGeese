@@ -7,14 +7,20 @@ import {
   LineElement,
   Title,
   Legend,
+  ChartOptions,
+  TimeScale,
+  CartesianScaleTypeRegistry,
+  ScaleOptionsByType
 } from 'chart.js';
 import 'chartjs-adapter-moment';
 import { Line } from 'react-chartjs-2';
 import { EloPoint } from '../models'
+import { _DeepPartialObject } from 'chart.js/types/utils';
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
+  TimeScale,
   PointElement,
   LineElement,
   Title,
@@ -27,24 +33,32 @@ interface Props {
 
 const Chart: React.FC<Props> = (props: Props) => {
 
-  const [series1, setSeries1] = useState([]);
-  const [series2, setSeries2] = useState([]);
+  const [series1, setSeries1] = useState(new Map<number, number>());
+  const [series2, setSeries2] = useState(new Map<number, number>());
+  const [start, setStart] = useState(new Date("2010"))
 
   useEffect(() => {
     if (props.series) {
-      setSeries1(props.series[0].map(d => ({x: Date.parse(d.date)/1000, y: d.elo})))
-      setSeries2(props.series[1].map(d => ({x: Date.parse(d.date)/1000, y: d.elo})))
+      const m1 = new Map();
+      const m2 = new Map();
+      props.series[0].forEach(d => m1.set(Date.parse(d.date), d.elo))
+      props.series[1].forEach(d => m2.set(Date.parse(d.date), d.elo))
+      setSeries1(m1);
+      setSeries2(m2);
     }
   }, [props.series])
 
-  const options = {
-    scales: {
-      x: [{
-        // The axis for this scale is determined from the first letter of the id as `'x'`
-        // It is recommended to specify `position` and / or `axis` explicitly.
-        type: 'time',
-      }]
-    },
+
+  const scales: _DeepPartialObject<{
+    [key: string]: ScaleOptionsByType<"radialLinear" | keyof CartesianScaleTypeRegistry>;
+}> = {
+      x: {
+        'type': 'time',
+      }
+    };
+
+  const options: ChartOptions = {
+    scales,
     plugins: {
       legend: {
         position: 'top' as const,
@@ -56,12 +70,23 @@ const Chart: React.FC<Props> = (props: Props) => {
     },
   };
 
+  const getDaysArray = (start, end) => {
+    for(var arr=[],dt=new Date(start); dt<=end; dt.setDate(dt.getDate()+1)){
+        arr.push(new Date(dt));
+    }
+    return arr;
+};
+
+  const days: Array<Date> = getDaysArray(new Date("2010-01-01"),new Date());
+
+  console.log(series1)
+  console.log(days)
   const data = {
-    labels: [...new Set(series1.map(d => d.x).concat(series2.map(d => d.x)))].sort(),
+    labels: days,//[...new Set(series1.map(d => d.x).concat(series2.map(d => d.x)))].sort().map(date => new Date(date * 1000).toLocaleDateString("en-US")),
     datasets: [
       {
         label: 'Dataset 1',
-        data: series1,
+        data: days.map(day => series1.get(day.getTime()) || null),
         tension: 0.3,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
@@ -69,7 +94,7 @@ const Chart: React.FC<Props> = (props: Props) => {
       },
       {
         label: 'Dataset 2',
-        data: series2,
+        data: days.map(day => series2.get(day.getTime()) || null),
         tension: 0.3,
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
@@ -78,7 +103,7 @@ const Chart: React.FC<Props> = (props: Props) => {
     ],
   };
 
-  return <Line options={options} data={data} />;
+  return <Line data={data} />;
 }
 
 export default Chart
