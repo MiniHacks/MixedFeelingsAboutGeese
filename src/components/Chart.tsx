@@ -71,9 +71,7 @@ const Chart: React.FC<Props> = (props: Props) => {
     return arr;
 };
 
-  const data = {
-    labels: dayArray,//[...new Set(series1.map(d => d.x).concat(series2.map(d => d.x)))].sort().map(date => new Date(date * 1000).toLocaleDateString("en-US")),
-    datasets: [
+  const datasets2 = [
       {
         label: 'Dataset 1',
         data: dayArray.map(day => series1.get(day.getTime()) || null),
@@ -90,10 +88,9 @@ const Chart: React.FC<Props> = (props: Props) => {
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
         pointRadius: 0
       },
-    ],
-  };
+    ];
 
-  return <Line data={data} />;
+  return <Line data={{labels: dayArray, datasets: datasets2}} />;
 }
 
 export default Chart
