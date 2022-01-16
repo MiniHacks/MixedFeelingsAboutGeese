@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import 'chartjs-adapter-moment';
 import { Line } from 'react-chartjs-2';
 import { EloPoint } from '../models'
 
@@ -33,13 +34,20 @@ const Chart: React.FC<Props> = (props: Props) => {
 
   useEffect(() => {
     if (props.series) {
-      setSeries1(props.series[0].map(d => ({x: d.date, y: d.elo})))
-      setSeries2(props.series[1].map(d => ({x: d.date, y: d.elo})))
+      setSeries1(props.series[0].map(d => ({x: Date.parse(d.date)/1000, y: d.elo})))
+      setSeries2(props.series[1].map(d => ({x: Date.parse(d.date)/1000, y: d.elo})))
     }
   }, [props.series])
 
   const options = {
     responsive: true,
+    scales: {
+      xAxis: [{
+        // The axis for this scale is determined from the first letter of the id as `'x'`
+        // It is recommended to specify `position` and / or `axis` explicitly.
+        type: 'time',
+      }]
+    },
     plugins: {
       legend: {
         position: 'top' as const,
@@ -51,14 +59,15 @@ const Chart: React.FC<Props> = (props: Props) => {
     },
   };
 
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  //const labels = ['2010', '2011', '2012', '2013', '2020', '2021', '2022'];
 
   const data = {
-    labels,
+    labels: [2010, 2022],
     datasets: [
       {
         label: 'Dataset 1',
         data: series1,
+        tension: 5,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
