@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Accordion, Form } from "react-bootstrap";
+import { Accordion, Container, Row, Col, Form } from "react-bootstrap";
 import { nflTeams, nbaTeams, mlbTeams, nhlTeams } from "../resources/teams";
 import "../styles/custom.css";
 
@@ -8,18 +8,27 @@ const TeamTable = () => {
 
   const renderTeamCheckForm = (teams: string[]) => {
     return (
-      <React.Fragment>
-        {teams.map((t) => {
-          return (
-            <Form.Check
-              type="checkbox"
-              key={t}
-              label={t}
-              onClick={() => handleTeamSelect(t)}
-            />
-          );
-        })}
-      </React.Fragment>
+      <Container>
+        <Row>
+          {[0, 1, 2].map((page) => {
+            const colTeams: string[] = teams.slice(10 * page, 10 * (page + 1));
+            return (
+              <Col>
+                {colTeams.map((t) => {
+                  return (
+                    <Form.Check
+                      type="checkbox"
+                      key={t}
+                      label={t}
+                      onClick={() => handleTeamSelect(t)}
+                    />
+                  );
+                })}
+              </Col>
+            );
+          })}
+        </Row>
+      </Container>
     );
   };
 
