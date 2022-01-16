@@ -14,7 +14,7 @@ import {
 } from 'chart.js';
 import 'chartjs-adapter-moment';
 import { Line } from 'react-chartjs-2';
-import { EloPoint } from '../models'
+import { EloPoint, Team } from '../models'
 import { _DeepPartialObject } from 'chart.js/types/utils';
 
 ChartJS.register(
@@ -28,40 +28,51 @@ ChartJS.register(
 );
 
 interface Props {
-  series: Array<Array<EloPoint>> | undefined;
+  datasets: Array<Team> | undefined;
 }
 
 const Chart: React.FC<Props> = (props: Props) => {
 
-  const [series1, setSeries1] = useState(new Map<number, number>());
-  const [series2, setSeries2] = useState(new Map<number, number>());
-  const [start, setStart] = useState(new Date("2010"))
+  const [labels, setLabels] = useState([])
+  const [datasets, setDatasets] = useState([])
 
   useEffect(() => {
-    if (props.series) {
-      const m1 = new Map();
-      const m2 = new Map();
-      console.log(props.series[0].map(l => l.date))
-      props.series[0].forEach(d => m1.set(Date.parse(d.date), d.elo))
-      props.series[1].forEach(d => m2.set(Date.parse(d.date), d.elo))
-      setSeries1(m1);
-      setSeries2(m2);
+    if (props.datasets) {
+
+      const start = Math.min(...props.datasets.map(dataset => Date.parse(dataset.elo_history[0].date)))
+      const dayArray = getDaysArray(start, Date.now())
+
+      const sets = props.datasets.map(dataset => {
+        const m = new Map<number, number>();
+        dataset.elo_history.forEach( point => 
+          m.set(Date.parse(point.date), point.elo)
+        )
+
+        const hue = 360 * Math.random()
+        return {
+          label: dataset.name,
+          data: dayArray.map(day => m.get(day.getTime()) || null),
+          borderColor: `hsla(${~~(hue)},70%,70%,0.8)`,
+          backgroundColor: `hsla(${~~(hue)},70%,70%,0.8)`,
+          pointRadius: 0,
+          tension: 0.3,
+          borderWidth: 5
+        }
+      })
+      sets.push({
+        label: "Average",
+        data: dayArray.map(day => 1400),
+        borderColor: `rgb(0,0,0, 0.4)`,
+        backgroundColor: `rgb(0,0,0,0.4)`,
+        pointRadius: 0,
+        tension: 0,
+        borderWidth: 3
+      })
+      setDatasets(sets)
+      setLabels(dayArray)
     }
-  }, [props.series])
+  }, [props.datasets])
 
-
-  const scales: _DeepPartialObject<{
-    [key: string]: ScaleOptionsByType<"radialLinear" | keyof CartesianScaleTypeRegistry>;
-}> = {
-      x: {
-        'type': 'time',
-        'time': { unit: 'day' }
-      }
-    };
-
-  const options: ChartOptions = {
-    scales,
-  };
 
   const getDaysArray = (start, end) => {
     for(var arr=[],dt=new Date(start); dt<=end; dt.setDate(dt.getDate()+1)){
@@ -70,32 +81,7 @@ const Chart: React.FC<Props> = (props: Props) => {
     return arr;
 };
 
-  const days: Array<Date> = getDaysArray(new Date("2010/01/01"),new Date());
-
-  console.log(days)
-  const data = {
-    labels: days,//[...new Set(series1.map(d => d.x).concat(series2.map(d => d.x)))].sort().map(date => new Date(date * 1000).toLocaleDateString("en-US")),
-    datasets: [
-      {
-        label: 'Dataset 1',
-        data: days.map(day => series1.get(day.getTime()) || null),
-        tension: 0.3,
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        pointRadius: 0,
-      },
-      {
-        label: 'Dataset 2',
-        data: days.map(day => series2.get(day.getTime()) || null),
-        tension: 0.3,
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
-        pointRadius: 0,
-      },
-    ],
-  };
-
-  return <Line data={data} />;
+  return <Line data={{labels: labels.map(label => label.toDateString()), datasets: datasets}} />;
 }
 
 export default Chart
