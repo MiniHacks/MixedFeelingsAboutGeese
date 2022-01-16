@@ -2,7 +2,6 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { signInAnonymously, UserCredential } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-import Chart from "./components/Chart";
 import { Route, Routes } from "react-router-dom";
 import { auth } from "./firebase";
 
@@ -64,7 +63,6 @@ const App: React.FC = () => {
         <Route path="/leaderboard" element={<Leaderboard auth={userId} />} />
         <Route path="/about" element={<About />} />
       </Routes>
-      <Chart series={chartData} />
     </div>
   );
 };

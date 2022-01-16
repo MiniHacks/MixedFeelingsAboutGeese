@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -17,6 +17,19 @@ export default function Teams({ auth }) {
       return <h1 className="misery"> Your misery index is unknown </h1>;
     }
   }
+
+  useEffect(() => {
+    getUser();
+  });
+
+  const getUser = async () => {
+    const { miseryScore, teams, saved } = (
+      await getDoc(doc(db, "users", auth.uid))
+    ).data();
+    if (saved) {
+      setMisery(miseryScore);
+    }
+  };
 
   const handleTeamSelect = (team: string) => {
     const copyTeams: string[] = [...selectedTeams];
