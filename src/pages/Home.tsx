@@ -1,14 +1,15 @@
-import React, { Children } from 'react';
-import { Link } from 'react-router-dom';
-import CustomButton from '../components/customButton';
-import '../styles/custom.css';
+import React, { Children } from "react";
+import { Link } from "react-router-dom";
+import CustomButton from "../components/customButton";
+import "../styles/custom.css";
 /* import { Link } from 'react-router-dom'; */
 
 /* questionable code woohoo! */
 export default function Home() {
   return (
     <div className="page home">
-      <h1>How
+      <h1>
+        How
         <span>
           <span> </span>
           <span className="dance">m</span>
@@ -22,10 +23,15 @@ export default function Home() {
           <span className="dance">e</span>
           <span> </span>
         </span>
-          are you according to your sports?</h1>
-        <Link to="/teams">
-          <CustomButton text = "find out now"/>
-        </Link>
+        are you according to your sports?
+      </h1>
+      <Link to="/teams">
+        <CustomButton
+          text="find out now"
+          onClick={() => console.log("Click!")}
+          disabled={false}
+        />
+      </Link>
     </div>
   );
-};
+}
