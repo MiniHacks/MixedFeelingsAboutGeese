@@ -45,6 +45,7 @@ const App: React.FC = () => {
     <div className="App">
       <header className="App-header">
         Brilliant React Code
+        <Chart />
       </header>
     </div>
   );
