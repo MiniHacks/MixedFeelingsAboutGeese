@@ -11,7 +11,7 @@ import { teams } from './scripts/gen_docs'
 import { setDoc, doc } from 'firebase/firestore';
 */
 import { db } from './firebase';
-import { getDoc, doc, DocumentData } from 'firebase/firestore';
+import { getDoc, doc } from 'firebase/firestore';
 
 import { EloPoint } from './models'
 import Navigation from './components/navigation';
