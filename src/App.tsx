@@ -10,6 +10,7 @@ import { auth } from './firebase';
 import { teams } from './scripts/gen_docs'
 import { setDoc, doc } from 'firebase/firestore';
 */
+
 import { db } from './firebase';
 import { getDoc, doc, DocumentData } from 'firebase/firestore';
 
@@ -60,13 +61,13 @@ const App: React.FC = () => {
   return (
     <div className="App-custom">
       <Navigation />
-      <Routes>
-        <Route path='/' element={<Home/>} />
-        <Route path='/teams' element={<Teams/>} />
-        <Route path='/leaderboard' element={<Leaderboard/>} />
-        <Route path='/about' element={<About/>} />
-      </Routes>
-      <Chart series={chartData}/>
+        <Routes>
+          <Route path='/' element={<Home/>} />
+          <Route path='/teams' element={<Teams/>} />
+          <Route path='/leaderboard' element={<Leaderboard/>} />
+          <Route path='/about' element={<About/>} />
+        </Routes>
+        <Chart series={chartData}/>
     </div>
   );
 }

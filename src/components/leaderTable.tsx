@@ -18,6 +18,11 @@ const LeaderTable = () => {
         </thead>
         <tbody>
           <tr>
+            <td>1</td>
+            <td>Ada Lovelace</td>
+            <td>1932</td>
+          </tr>
+          <tr>
             <td>2</td>
             <td>Som E. Guy</td>
             <td>1648</td>

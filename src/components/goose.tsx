@@ -1,4 +1,3 @@
-import { DecimationAlgorithm } from 'chart.js';
 import React from 'react';
 
 /* does this need to be a component? probably not */

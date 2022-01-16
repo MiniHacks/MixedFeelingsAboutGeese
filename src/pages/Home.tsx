@@ -4,7 +4,6 @@ import CustomButton from '../components/customButton';
 import '../styles/custom.css';
 /* import { Link } from 'react-router-dom'; */
 
-
 /* questionable code woohoo! */
 export default function Home() {
   return (
@@ -24,9 +23,9 @@ export default function Home() {
           <span> </span>
         </span>
           are you according to your sports?</h1>
-      <Link to="/teams">
-        <CustomButton />
-      </Link>
+        <Link to="/teams">
+          <CustomButton />
+        </Link>
     </div>
   );
 };
