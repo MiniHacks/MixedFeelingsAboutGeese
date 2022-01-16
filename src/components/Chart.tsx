@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,6 +12,7 @@ import {
   CartesianScaleTypeRegistry,
   ScaleOptionsByType,
 } from "chart.js";
+import isDeepEqual from 'fast-deep-equal/react'
 import "chartjs-adapter-moment";
 import { Line } from "react-chartjs-2";
 import { EloPoint, Team } from "../models";
@@ -27,6 +28,7 @@ ChartJS.register(
   Legend
 );
 
+
 interface Props {
   datasets: Array<Team> | undefined;
 }
@@ -34,8 +36,15 @@ interface Props {
 const Chart: React.FC<Props> = (props: Props) => {
   const [labels, setLabels] = useState([]);
   const [datasets, setDatasets] = useState([]);
+  const datasetsRef = useRef(props.datasets)
+
+  if (!isDeepEqual(datasetsRef.current, props.datasets)) { 
+    datasetsRef.current = props.datasets
+  }
 
   useEffect(() => {
+    // @ts-ignore
+    ChartJS.defaults.animation.duration = 0
     if (props.datasets) {
       const start = Math.min(
         ...props.datasets.map((dataset) =>
@@ -57,8 +66,9 @@ const Chart: React.FC<Props> = (props: Props) => {
           borderColor: `hsla(${~~hue},70%,70%,0.8)`,
           backgroundColor: `hsla(${~~hue},70%,70%,0.8)`,
           pointRadius: 0,
-          tension: 0.3,
+          tension: 0.7,
           borderWidth: 5,
+          spanGaps: true,
         };
       });
       sets.push({
@@ -69,11 +79,14 @@ const Chart: React.FC<Props> = (props: Props) => {
         pointRadius: 0,
         tension: 0,
         borderWidth: 3,
+        spanGaps: true,
       });
       setDatasets(sets);
       setLabels(dayArray);
+      console.log(sets)
     }
-  }, [props.datasets]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [datasetsRef.current]);
 
   const getDaysArray = (start, end) => {
     for (

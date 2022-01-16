@@ -13,6 +13,7 @@ const Results = ({ miseryScore, miseryTeams }) => {
     userTeams.sort((a, b) => (miseryTeams[a] < miseryTeams[b] ? 1 : -1));
     getTeamInfo(userTeams[0], false);
     getTeamInfo(userTeams[userTeams.length - 1], true);
+    console.log("misey chaning")
   }, []);
 
   const getTeamInfo = async (teamname: string, least: boolean) => {
@@ -68,7 +69,7 @@ const Results = ({ miseryScore, miseryTeams }) => {
           {leastMiserable.average_elo} when compared to the average value of
           1400.
         </h4>
-        {/* CHART GOES HERE */}
+        <Chart datasets={[leastMiserable]} />
         <h4 className="pText">
           The {leastMiserable.name} have a success rating of{" "}
           {leastMiserable.title_score} since the year 2000 compared to an

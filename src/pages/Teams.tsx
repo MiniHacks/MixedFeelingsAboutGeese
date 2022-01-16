@@ -20,7 +20,7 @@ export default function Teams({ auth }) {
 
   useEffect(() => {
     getUser();
-  });
+  }, []);
 
   const getUser = async () => {
     const { miseryScore, teams, saved } = (
