@@ -14,6 +14,7 @@ const App: React.FC = () => {
     const credential: UserCredential = await signInAnonymously(auth);
     setUser(credential.user)
     setUserId(credential.user.uid)
+    console.log(credential.user);
   }
 
   // mount loop (ideally)
@@ -22,6 +23,17 @@ const App: React.FC = () => {
     signIn()
   }, []);
 
+  /*
+  import { setDoc, doc } from 'firebase/firestore';
+  import { auth, db } from './firebase';
+  const sendDocuments = () => {
+    console.log("Sending documents!")
+    teams.forEach(async team => {
+      await setDoc(doc(db,"team_info", team.name), team)
+    });
+    console.log("Sent documents!")
+  }
+  */
 
   return (
     <div className="App">
