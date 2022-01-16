@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;500;600;700;800;900&family=Roboto:ital,wght@0,400;0,700;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Sorts+Mill+Goudy:ital@0;1&display=swap');
+
+.custom {
+    font-family: 'Inconsolata', 'Roboto', sans-serif !important;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+    background-color: white !important;
+    border-radius: 8px;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+/* homepage */
+
+/* homepage - first clickthrough */
+.page.home {
+    padding: 100px 200px;
+}
+
+.page.home h1 {
+    font-family: 'Baskervville', serif;
+    font-size: 40px;
+    margin-bottom: 40px;
+    max-width: 500px;
+}
+
+.page .footer {
+    display: flex;
+    justify-content: flex-end;
+}
