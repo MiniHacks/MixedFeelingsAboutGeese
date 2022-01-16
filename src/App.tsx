@@ -2,7 +2,7 @@ import './App.css';
 
 import { signInAnonymously, UserCredential } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
-import { addDoc, collection } from 'firebase/firestore';
+import { setDoc, doc } from 'firebase/firestore';
 
 import { auth, db } from './firebase';
 import { teams } from './scripts/nhl_docs'
@@ -28,8 +28,7 @@ const App: React.FC = () => {
   const sendDocuments = () => {
     console.log("Sending documents!")
     teams.forEach(async team => {
-      const t = await addDoc(collection(db,"teams"), team)
-      console.log(await t)
+      await setDoc(doc(db,"team_info", team.name), team)
     });
     console.log("Sent documents!")
   }
@@ -38,7 +37,6 @@ const App: React.FC = () => {
     <div className="App">
       <header className="App-header">
         Brilliant React Code
-        <button onClick={sendDocuments}> Blast off! </button>
       </header>
     </div>
   );
