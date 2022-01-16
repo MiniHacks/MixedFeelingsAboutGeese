@@ -28,28 +28,37 @@ ChartJS.register(
 );
 
 interface Props {
-  series: Array<Array<EloPoint>> | undefined;
+  datasets: Array<Array<EloPoint>> | undefined;
 }
 
 const Chart: React.FC<Props> = (props: Props) => {
 
   const [series1, setSeries1] = useState(new Map<number, number>());
   const [series2, setSeries2] = useState(new Map<number, number>());
+  const [datasets, setDatasets] = useState([])
   const [start, setStart] = useState(new Date("2010"))
   const [dayArray, setDayArray] = useState([])
 
   useEffect(() => {
-    if (props.series) {
+    if (props.datasets) {
+      setDatasets(props.datasets.map(dataset => {
+        const m = new Map<number, number>();
+        dataset.forEach( point => 
+          m1.set(Date.parse(point.date), point.elo)
+        )
+        return m
+      }))
+      console.log(datasets)
       const m1 = new Map();
       const m2 = new Map();
-      props.series[0].forEach(d => m1.set(Date.parse(d.date), d.elo))
-      props.series[1].forEach(d => m2.set(Date.parse(d.date), d.elo))
+      props.datasets[0].forEach(d => m1.set(Date.parse(d.date), d.elo))
+      props.datasets[1].forEach(d => m2.set(Date.parse(d.date), d.elo))
       setSeries1(m1);
       setSeries2(m2);
 
-      setStart(new Date(Math.min(Date.parse(props.series[0][0].date), Date.parse(props.series[1][0].date))))
+      setStart(new Date(Math.min(Date.parse(props.datasets[0][0].date), Date.parse(props.datasets[1][0].date))))
     }
-  }, [props.series])
+  }, [props.datasets])
 
   useEffect(() => {
     setDayArray(getDaysArray(start, Date.now()))
@@ -87,6 +96,9 @@ const Chart: React.FC<Props> = (props: Props) => {
   const data = {
     labels: dayArray,//[...new Set(series1.map(d => d.x).concat(series2.map(d => d.x)))].sort().map(date => new Date(date * 1000).toLocaleDateString("en-US")),
     datasets: [
+      {
+        label: 'Average'
+      }
       {
         label: 'Dataset 1',
         data: dayArray.map(day => series1.get(day.getTime()) || null),

@@ -45,7 +45,7 @@ const App: React.FC = () => {
 
   return (
     <div className="App-custom">
-    <Chart series={chartData}/>
+    <Chart datasets={chartData}/>
       <Navigation />
       <Routes>
         <Route path='/' element={<Home/>} />
