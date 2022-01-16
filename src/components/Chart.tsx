@@ -49,7 +49,7 @@ const Chart: React.FC<Props> = (props: Props) => {
 
       setStart(new Date(Math.min(Date.parse(props.series[0][0].date), Date.parse(props.series[1][0].date))))
     }
-  }, [props.series, start])
+  }, [props.series])
 
   useEffect(() => {
     setDayArray(getDaysArray(start, Date.now()))
@@ -84,28 +84,24 @@ const Chart: React.FC<Props> = (props: Props) => {
     return arr;
 };
 
-  const days: Array<Date> = getDaysArray(start, new Date());
-
-  console.log(series1)
-  console.log(days)
   const data = {
-    labels: days,//[...new Set(series1.map(d => d.x).concat(series2.map(d => d.x)))].sort().map(date => new Date(date * 1000).toLocaleDateString("en-US")),
+    labels: dayArray,//[...new Set(series1.map(d => d.x).concat(series2.map(d => d.x)))].sort().map(date => new Date(date * 1000).toLocaleDateString("en-US")),
     datasets: [
       {
         label: 'Dataset 1',
-        data: days.map(day => series1.get(day.getTime()) || null),
-        tension: 0.3,
+        data: dayArray.map(day => series1.get(day.getTime()) || null),
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
         pointRadius: 0,
+        tension: 0.3
       },
       {
         label: 'Dataset 2',
-        data: days.map(day => series2.get(day.getTime()) || null),
+        data: dayArray.map(day => series2.get(day.getTime()) || null),
         tension: 0.3,
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
-        pointRadius: 0,
+        pointRadius: 0
       },
     ],
   };
