@@ -6,12 +6,8 @@ import Chart from './components/Chart';
 import { Route, Routes } from "react-router-dom";
 import { auth } from './firebase';
 
-/*
-import { teams } from './scripts/gen_docs'
-import { setDoc, doc } from 'firebase/firestore';
-*/
 import { db } from './firebase';
-import { getDoc, doc, DocumentData } from 'firebase/firestore';
+import { getDoc, doc } from 'firebase/firestore';
 
 import { EloPoint } from './models'
 import Navigation from './components/navigation';
@@ -46,16 +42,6 @@ const App: React.FC = () => {
 
     setChartData([twinsElo, yankeesElo])
   }
-  /*
-  const sendDocuments = () => {
-    console.log("Sending documents!")
-    teams.forEach(async team => {
-      await setDoc(doc(db,"team_info", team.name), team)
-    });
-    console.log("Sent documents!")
-  }
-  <button onClick={sendDocuments}> Blast Off! </button>
-  */
 
   return (
     <div className="App-custom">
