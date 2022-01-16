@@ -33,13 +33,18 @@ interface Props {
 
 const Chart: React.FC<Props> = (props: Props) => {
 
-  const [series1, setSeries1] = useState([]);
-  const [series2, setSeries2] = useState([]);
+  const [series1, setSeries1] = useState(new Map<number, number>());
+  const [series2, setSeries2] = useState(new Map<number, number>());
+  const [start, setStart] = useState(new Date("2010"))
 
   useEffect(() => {
     if (props.series) {
-      setSeries1(props.series[0].map(d => ({x: Date.parse(d.date)/1000, y: d.elo})))
-      setSeries2(props.series[1].map(d => ({x: Date.parse(d.date)/1000, y: d.elo})))
+      const m1 = new Map();
+      const m2 = new Map();
+      props.series[0].forEach(d => m1.set(Date.parse(d.date), d.elo))
+      props.series[1].forEach(d => m2.set(Date.parse(d.date), d.elo))
+      setSeries1(m1);
+      setSeries2(m2);
     }
   }, [props.series])
 
@@ -72,12 +77,16 @@ const Chart: React.FC<Props> = (props: Props) => {
     return arr;
 };
 
+  const days: Array<Date> = getDaysArray(new Date("2010-01-01"),new Date());
+
+  console.log(series1)
+  console.log(days)
   const data = {
-    labels: getDaysArray(new Date("2010-01-01"),new Date()),//[...new Set(series1.map(d => d.x).concat(series2.map(d => d.x)))].sort().map(date => new Date(date * 1000).toLocaleDateString("en-US")),
+    labels: days,//[...new Set(series1.map(d => d.x).concat(series2.map(d => d.x)))].sort().map(date => new Date(date * 1000).toLocaleDateString("en-US")),
     datasets: [
       {
         label: 'Dataset 1',
-        data: series1,
+        data: days.map(day => series1.get(day.getTime()) || null),
         tension: 0.3,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
@@ -85,7 +94,7 @@ const Chart: React.FC<Props> = (props: Props) => {
       },
       {
         label: 'Dataset 2',
-        data: series2,
+        data: days.map(day => series2.get(day.getTime()) || null),
         tension: 0.3,
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
