@@ -50,7 +50,6 @@ const Chart: React.FC<Props> = (props: Props) => {
           m.set(Date.parse(point.date), point.elo)
         )
 
-
         return {
           label: 'Data!',
           data: dayArray.map(day => m.get(day.getTime()) || null),
@@ -81,26 +80,7 @@ const Chart: React.FC<Props> = (props: Props) => {
     return arr;
 };
 
-  const datasets2 = [
-      {
-        label: 'Dataset 1',
-        data: labels.map(day => series1.get(day.getTime()) || null),
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        pointRadius: 0,
-        tension: 0.3
-      },
-      {
-        label: 'Dataset 2',
-        data: labels.map(day => series2.get(day.getTime()) || null),
-        tension: 0.3,
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
-        pointRadius: 0
-      },
-    ];
-
-  return <Line data={{labels: labels, datasets: datasets2}} />;
+  return <Line data={{labels: labels, datasets: datasets}} />;
 }
 
 export default Chart
