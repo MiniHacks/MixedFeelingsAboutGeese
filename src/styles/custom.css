@@ -43,21 +43,30 @@
 /* teams + leaderboard page */
 .page.leaderboard,
 .page.teams {
-    display: flex;
-    padding: 100px;
+  display: flex;
+  padding: 100px;
 }
 
 .page.leaderboard Table,
 .page.teams .table {
-    font-size: 24px;
-    width: 60vw;
-    text-align: left;
+  font-size: 24px;
+  text-align: left;
+  width: 60vw;
+}
+
+.dropdown {
+  width: 60vw;
 }
 
 .teams .misery {
   font-family: 'Baskervville', serif;
   font-size: 60px;
   margin-bottom: 60px;
+}
+
+.teams .select {
+  padding: 40px 20px 20px 20px;
+  font-family: 'Baskervville', serif;
 }
 
 /* about */
@@ -77,8 +86,6 @@
 .page.about img {
     padding: 20px;
 }
-
-/*  */
 
 /* animation */
 
