@@ -50,7 +50,7 @@ const Chart: React.FC<Props> = (props: Props) => {
 
         const hue = 360 * Math.random()
         return {
-          label: 'Data!',
+          label: dataset.name,
           data: dayArray.map(day => m.get(day.getTime()) || null),
           borderColor: `hsla(${~~(hue)},70%,70%,0.8)`,
           backgroundColor: `hsla(${~~(hue)},70%,70%,0.8)`,
@@ -71,7 +71,7 @@ const Chart: React.FC<Props> = (props: Props) => {
     return arr;
 };
 
-  return <Line data={{labels: labels, datasets: datasets}} />;
+  return <Line data={{labels: labels.map(label => label.toDateString()), datasets: datasets}} />;
 }
 
 export default Chart
