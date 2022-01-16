@@ -7,7 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import { auth } from './firebase';
 
 import { db } from './firebase';
-import { getDoc, doc, updateDoc } from 'firebase/firestore';
+import { getDoc, doc } from 'firebase/firestore';
 
 import { EloPoint } from './models'
 import Navigation from './components/navigation';
@@ -15,7 +15,6 @@ import Home from './pages/Home';
 import Teams from './pages/Teams';
 import Leaderboard from './pages/Leaderboard';
 import About from './pages/About';
-import teams from './scripts/data/average_elo.json'
 
 const App: React.FC = () => {
 
@@ -44,13 +43,6 @@ const App: React.FC = () => {
     setChartData([twinsElo, yankeesElo])
   }
 
-  const updateDocs = async () => {
-    Object.keys(teams).forEach(async name => {
-      let x = await updateDoc(doc(db, "team_info", name),{"average_elo": Math.round(teams[name])})
-      console.log(x)
-    })
-  }
-
   return (
     <div className="App-custom">
       <Navigation />
@@ -61,7 +53,6 @@ const App: React.FC = () => {
           <Route path='/about' element={<About/>} />
         </Routes>
         <Chart series={chartData}/>
-        <button onClick={updateDocs}> Blast Off! </button>
     </div>
   );
 }
